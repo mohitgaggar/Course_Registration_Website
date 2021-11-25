@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block navbar_brand %}
+    <a class="navbar-brand" href="add_course">Add Courses</a>
+{% endblock%}
+
+{% block navbar_items %}
+<a class="nav-item nav-link" href="home">Home</a>
+<a class="nav-item nav-link" href="signout">Logout</a>
+<!-- <input class="nav-item ">Search</input> -->
+
+<a class="nav-item nav-link" href="delete_course">Delete Courses</a>
+<a class="nav-item nav-link" href="update_course">Update Courses</a>
+{% endblock%}
+
+
+{% block content %}
+<!-- <p>Add course</p> -->
+    
+    <div class="container">
+        
+        <main class="form-signin">
+            <form method="post" action="/add_course">
+                {% csrf_token %}
+
+                <h1 class="h3 mb-3 fw-normal">Add Course</h1>
+                
+                <div class="form-floating">
+                <input type="name" class="form-control" id="floatingInput" placeholder="name" name="name">
+                <label for="floatingInput">Name of course</label>
+                </div>
+
+                
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Course ID" name="course_id">
+                <label for="floatingInput">Course Id</label>
+                </div>
+
+                <div class="form-floating">
+                <input type="name" class="form-control" id="floatingInput" placeholder="name" name="prof_name">
+                <label for="floatingInput">Name of Prof</label>
+                </div>
+
+                
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Prof ID" name="prof_id">
+                <label for="floatingInput">Prof Id</label>
+                </div>
+
+                
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="10" name="seats_available">
+                <label for="floatingInput">Seats Available</label>
+                </div>
+
+                <div class="form-floating">
+                <input type="time" class="form-control" id="floatingInput" placeholder="" name="start_time">
+                <label for="floatingInput">Starting Time</label>
+                </div>
+
+                
+                <div class="form-floating">
+                <input type="time" class="form-control" id="floatingInput" placeholder="" name="end_time">
+                <label for="floatingInput">Ending Time</label>
+                </div>
+  
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="..." name="description">
+                <label for="floatingInput">Description</label>
+                </div>
+
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="M T W Th F S Su" name="days" multiple>
+                <label for="floatingInput">Days Of the week</label>
+                </div>
+
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="UE18MATH.." name="prerequisites" multiple>
+                <label for="floatingInput">Prerequisites</label>
+                </div>
+
+                
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+            </form>
+        </main>
+    </div>
+
+{% endblock%}
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Add course</p>
+    
+    <div class="container">
+        
+        <main class="form-signin">
+            <form method="post" action="/add_course">
+                {% csrf_token %}
+
+                <h1 class="h3 mb-3 fw-normal">Add A course</h1>
+                
+                <div class="form-floating">
+                <input type="name" class="form-control" id="floatingInput" placeholder="name" name="name">
+                <label for="floatingInput">Name of course</label>
+                </div>
+
+                
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Course ID" name="course_id">
+                <label for="floatingInput">Course Id</label>
+                </div>
+
+                <div class="form-floating">
+                <input type="name" class="form-control" id="floatingInput" placeholder="name" name="prof_name">
+                <label for="floatingInput">Name of Prof</label>
+                </div>
+
+                
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Prof ID" name="prof_id">
+                <label for="floatingInput">Prof Id</label>
+                </div>
+
+                
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="10" name="seats_available">
+                <label for="floatingInput">Seats Available</label>
+                </div>
+
+                <div class="form-floating">
+                <input type="time" class="form-control" id="floatingInput" placeholder="" name="start_time">
+                <label for="floatingInput">Starting Time</label>
+                </div>
+
+                
+                <div class="form-floating">
+                <input type="time" class="form-control" id="floatingInput" placeholder="" name="end_time">
+                <label for="floatingInput">Ending Time</label>
+                </div>
+  
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="..." name="description">
+                <label for="floatingInput">Description</label>
+                </div>
+
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="M T W Th F S Su" name="days" multiple>
+                <label for="floatingInput">Days Of the week</label>
+                </div>
+
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="UE18MATH.." name="prerequisites" multiple>
+                <label for="floatingInput">Prerequisites</label>
+                </div>
+
+                
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+            </form>
+        </main>
+    </div>
+
+    
+</body>
+</html> -->

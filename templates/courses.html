@@ -1,0 +1,305 @@
+<div id='div1'>
+	{% extends 'base.html' %}
+	{% block navbar_brand %}
+		<a class="navbar-brand" href="pick_course">Course Selection</a>
+	{% endblock%}
+
+	{% block navbar_items %}
+	<a class="nav-item nav-link myitem" href="home">Home</a>
+	<a class="nav-item nav-link myitem" href="signout">Logout</a>
+	<!-- <a class="nav-item nav-link" href="calendar">Calendar</a> -->
+	<!-- <input class="nav-item ">Search</input> -->
+	
+	{% endblock%}
+
+	{% block search%}
+	<!-- <nav class="navbar navbar-light bg-light"> -->
+	<span class="nav-item">
+		<form class="form-inline" style="margin: 0px;" action="/search">
+			<div class="input-group mb-0">
+			<input class="form-control mr-sm-2" name="course_name" placeholder="Search" aria-label="Search">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</div>
+		</form>
+	</span>
+	  <!-- </nav> -->
+	{% endblock %}
+
+	
+	{% block content %}
+	
+	
+	{{ registered_course|json_script:"registered_course" }}
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script>
+	
+	
+		function on_load_func() {
+			var mybutton=document.getElementById('my-toggle-button');
+            var myitems=document.getElementsByClassName('myitem');
+            console.log(myitems);
+            var strin='<nav class="navbar bg-dark navbar-dark"><ul class="navbar-nav">';
+            for(j=0;j<myitems.length;j++){
+                strin+=`<li class="nav-item"><a class="nav-link" href=${myitems[j].href}>${myitems[j].innerHTML}</a></li>`;
+            }
+            strin+='</ul></nav>'
+            mybutton.innerHTML=strin;  
+			var mydata = JSON.parse(document.getElementById('registered_course').textContent);
+			var course_ids=mydata.split(/\s+/)
+			var table=document.getElementById('mytable');
+			var count = table.children[1].children.length;
+			for(var i = 0; i < count; i++){
+				var elem=table.children[1].children[i].children[0].innerHTML;
+				var regButton = table.children[1].children[i].children[7].firstChild;
+
+				if(course_ids.includes(elem)){
+					regButton.setAttribute( "onClick", "javascript: unreg(this);" ) 
+					regButton.innerText="Unregister";
+					regButton.style.backgroundColor="00FFFF"
+				}
+				
+				else{
+					regButton.setAttribute( "onClick", "javascript: reg(this);" ) 
+					regButton.innerHTML="Register";
+					regButton.style.backgroundColor="7CFC00"
+				
+				}
+				
+			}
+		}
+
+        window.onload = on_load_func;
+		
+		function reg(argThis){
+			
+			var row = argThis.parentNode.parentNode
+			var course_id = row.children[0].innerHTML
+			var course_name = row.children[1].innerHTML
+		
+			console.log(course_id,course_name ,"was selected");
+			let data={};
+			data.course_id=course_id;
+			data.course_name=course_name;
+			data.csrfmiddlewaretoken='{{ csrf_token }}';
+			// data.csrfmiddlewaretoken=csrftoken;
+			$.ajax({
+				
+				type:"POST",
+				url:'/register_course',
+				// headers:{
+				// 	'Accept': 'application/json',
+				// 	'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+				// 	'X-CSRFToken': csrftoken,
+				// },				
+				data:data,
+				// success: function(result){$("#div1").html(result);}
+				success: function(result){
+					// console.log(result);
+					// $("#div1").html(result);
+					// console.log(this.data);
+					var json = JSON.parse(result)
+					window.location.reload();
+					
+					alert(json["message"]);
+				}
+
+			})
+
+			// window.location.reload();
+
+
+		}
+		
+		function unreg(argThis){
+			
+			var row = argThis.parentNode.parentNode
+			var course_id = row.children[0].innerHTML
+			var course_name = row.children[1].innerHTML
+		
+			console.log(course_id,course_name ,"was selected");
+			let data={};
+			data.course_id=course_id;
+			data.course_name=course_name;
+			data.csrfmiddlewaretoken='{{ csrf_token }}';
+			// data.csrfmiddlewaretoken=csrftoken;
+			$.ajax({
+				
+				type:"POST",
+				url:'/unregister_course',
+			
+				data:data,
+				success: function(result){
+					var json = JSON.parse(result)
+					window.location.reload();
+					alert(json["message"]);
+				}
+
+			})
+
+			// window.location.reload();
+
+
+		}
+	
+		</script>
+
+
+	<br>
+	<!-- <form action="/search" method="post"> -->
+	<!-- {% csrf_token %} -->
+	<!-- <form action="/search">
+		<input type="text" placeholder="course name" name="course_name">
+		<button type="submit"><i class="fa fa-search">Search</i></button>
+	</form> -->
+
+	<div class="container-fluid">
+		<!-- table-bordered -->
+		<div class="table-responsive">
+		<!-- <table class="table table-bordered table-hover table-light  table-striped table-secondary" id="mytable"> -->
+		<table class="table  table-hover  " id="mytable" style="font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; ">
+			<thead>
+				<tr>
+					
+					<!-- <th scope="col">#</th> -->
+					<th scope="col">Course Code</th>
+					<th scope="col">Course Title</th>
+					<th scope="col">Professor Name</th>
+					<th scope="col">Seats Available</th>
+					<th scope="col">Days</th>
+					<th scope="col">Start</th>
+					<th scope="col">End</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for i in courses%}
+				<tr >
+					<!-- <th scope="row">j</th> -->
+					<td name='course_id' id="course_id" value='{{i.course_id}}'>{{i.course_id}}</td>
+					<td name='course_name'id="course_name">{{i.name}}</td>
+					<td>{{i.prof_name}}</td>
+					<td>{{i.seats_available}}</td>
+					<td>{{i.days}}</td>
+					<td>{{i.start_time}}</td>
+					<td>{{i.end_time}}</td>
+					<!-- <td></td> -->
+					<td><button onclick='reg(this)' class="btn btn-sm"></button></td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+
+{% endblock%}
+
+<!-- <!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+		<title>Hello, world!</title>
+	</head>
+	<body>
+		<div id='div1'>
+			<a href="pick_course">HIHIHI</a>
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+			<script>
+			
+				function func(argThis){
+					
+					var row = argThis.parentNode.parentNode
+					var course_id = row.children[0].innerHTML
+					var course_name = row.children[1].innerHTML
+				
+					console.log(course_id,course_name ,"was selected");
+					let data={};
+					data.course_id=course_id;
+					data.course_name=course_name;
+					data.csrfmiddlewaretoken='{{ csrf_token }}';
+					$.ajax({
+						
+						type:"POST",
+						url:'http://127.0.0.1:8000/pick_course',
+										
+						data:data,
+						success: function(result){$("#div1").html(result);}
+
+					})
+					// window.location.reload();
+
+
+					// var url = 'http://127.0.0.1:8000/pick_course';
+
+					// var xhr = new XMLHttpRequest();
+					// xhr.open("POST", url);
+					// xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+
+					// xhr.setRequestHeader("Accept", "application/json");
+					// xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+
+					// xhr.onreadystatechange = function () {
+					// if (xhr.readyState === 4) {
+					// 	console.log(xhr.status);
+					// 	console.log(xhr.responseText);
+					// }};
+
+					// var data = `{
+					// "course_id": course_id,
+					// "course_name": course_name,
+					// }`;
+
+					// let data={};
+					// data.course_id=course_id;
+					// data.course_name=course_name;
+					// data.csrfmiddlewaretoken='{{ csrf_token }}';
+
+					// xhr.send(data);
+					// xhr.send('course_id=course_id&pwd=password&organization=place&requiredkey=key');
+
+
+				}
+			
+				</script>
+
+
+			<h1>COURSES AVAILABLE</h1>
+		
+			{{possible_to_take_course}}
+			{% if added_course%}
+				<p>Hi</p>
+			{% endif %}
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						
+						<th scope="col">#</th>
+						<th scope="col">Course Code</th>
+						<th scope="col">Course Title</th>
+						<th scope="col">Professor Name</th>
+						<th scope="col">Seats Available</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for i in courses%}
+					<tr >
+						<th scope="row">j</th>
+						<td name='course_id' id="course_id">{{i.course_id}}</td>
+						<td name='course_name'id="course_name">{{i.name}}</td>
+						<td>{{i.prof_name}}</td>
+						<td>{{i.seats_available}}</td>
+						<td><button onclick='func(this)'>Select</button></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html> -->

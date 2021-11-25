@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block navbar_brand %}
+    <a class="navbar-brand" href="delete_course">Delete Courses</a>
+{% endblock%}
+
+{% block navbar_items %}
+<a class="nav-item nav-link" href="home">Home</a>
+<a class="nav-item nav-link" href="signout">Logout</a>
+<!-- <input class="nav-item ">Search</input> -->
+<a class="nav-item nav-link" href="add_course">Add Courses</a>
+
+<a class="nav-item nav-link" href="update_course">Update Courses</a>
+{% endblock%}
+
+{% block content %}
+<!-- <p>Delete course</p> -->
+    
+    <div class="container">
+        
+        <main class="form-signin">
+            <form method="post" action="/delete_course">
+                {% csrf_token %}
+
+                <h1 class="h3 mb-3 fw-normal">Delete Course</h1>
+
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Course ID" name="course_id">
+                <label for="floatingInput">Course Id</label>
+                </div>
+
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Remove Course</button>
+            </form>
+        </main>
+    </div>
+
+
+{% endblock%}
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Delete course</p>
+    
+    <div class="container">
+        
+        <main class="form-signin">
+            <form method="post" action="/delete_course">
+                {% csrf_token %}
+
+                
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Course ID" name="course_id">
+                <label for="floatingInput">Course Id</label>
+                </div>
+
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Remove Course</button>
+            </form>
+        </main>
+    </div>
+
+    
+</body>
+</html> -->

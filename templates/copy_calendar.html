@@ -1,0 +1,330 @@
+
+
+{% extends 'base.html' %}
+{% block navbar_brand %}
+    <a class="navbar-brand" href="pick_course">Calendar</a>
+{% endblock%}
+
+{% block navbar_items %}
+<a class="nav-item nav-link" href="home">Home</a>
+<a class="nav-item nav-link" href="signout">Logout</a>
+
+{% endblock%}
+
+{% block content %}
+<div class="container" style="font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; ">
+<div class="table-responsive">
+    <table class="table  table-hover tsable-light  " >
+        <thead >
+      <tr>
+          <th scope="col">Day</th>
+          
+          <th scope="col">7:00</th>
+          <th scope="col" style="opacity: 0;">1</th>
+          <th scope="col">8:00</th>
+          <th scope="col" style="opacity: 0;">1</th>
+          <th scope="col">9:00</th>
+          <th scope="col" style="opacity: 0;">1</th>
+          <th scope="col">10:00</th>
+          <th scope="col" style="opacity: 0;">1</th>
+          <th scope="col">11:00</th>
+          <th scope="col" style="opacity: 0;">1</th>
+          <th scope="col">12:00</th>
+          <th scope="col" style="opacity: 0;">1</th>
+          <th scope="col">13:00</th>
+          <th scope="col" style="opacity: 0;">1</th>
+          <th scope="col">14:00</th>
+          <th scope="col" style="opacity: 0;">1</th>
+          <th scope="col">15:00</th>
+          <th scope="col" style="opacity: 0;">1</th>
+          <th scope="col">16:00</th>
+          <th scope="col" style="opacity: 0;">1</th>
+          <th scope="col">17:00</th>
+          <th scope="col" style="opacity: 0;">1</th>
+          
+        </tr>
+    </thead>
+    <tbody>
+        <tr >
+            <td>Monday</td>
+            
+            <td class="monday" id="7_00"></td>
+            <td class="monday" id="7_30"></td>
+            <td class="monday" id="8_00"></td>
+            <td class="monday" id="8_30"></td>
+            <td class="monday" id="9_00"></td>
+            <td class="monday" id="9_30"></td>
+            <td class="monday" id="10_00"></td>
+            <td class="monday" id="10_30"></td>
+            <td class="monday" id="11_00"></td>
+            <td class="monday" id="11_30"></td>
+            <td class="monday" id="12_00"></td>
+            <td class="monday" id="12_30"></td>
+            <td class="monday" id="13_00"></td>
+            <td class="monday" id="13_30"></td>
+            <td class="monday" id="14_00"></td>
+            <td class="monday" id="14_30"></td>
+            <td class="monday" id="15_00"></td>
+            <td class="monday" id="15_30"></td>
+            <td class="monday" id="16_00"></td>
+            <td class="monday" id="16_30"></td>
+            <td class="monday" id="17_00"></td>
+            <td class="monday" id="17_30"></td>
+            
+            
+            
+        </tr>
+        <tr>
+            <td>Tuesday</td>
+            
+            <td class="tuesday" id="7_00"></td>
+            <td class="tuesday" id="7_30"></td>
+            <td class="tuesday" id="8_00"></td>
+            <td class="tuesday" id="8_30"></td>
+            <td class="tuesday" id="9_00"></td>
+            <td class="tuesday" id="9_30"></td>
+            <td class="tuesday" id="10_00"></td>
+            <td class="tuesday" id="10_30"></td>
+            <td class="tuesday" id="11_00"></td>
+            <td class="tuesday" id="11_30"></td>
+            <td class="tuesday" id="12_00"></td>
+            <td class="tuesday" id="12_30"></td>
+            <td class="tuesday" id="13_00"></td>
+            <td class="tuesday" id="13_30"></td>
+            <td class="tuesday" id="14_00"></td>
+            <td class="tuesday" id="14_30"></td>
+            <td class="tuesday" id="15_00"></td>
+            <td class="tuesday" id="15_30"></td>
+            <td class="tuesday" id="16_00"></td>
+            <td class="tuesday" id="16_30"></td>
+            <td class="tuesday" id="17_00"></td>
+            <td class="tuesday" id="17_30"></td>
+            
+            
+        </tr>
+        <tr>
+            <td>Wednesday</td>
+            
+            <td class="wednesday" id="7_00"></td>
+            <td class="wednesday" id="7_30"></td>
+            <td class="wednesday" id="8_00"></td>
+            <td class="wednesday" id="8_30"></td>
+            <td class="wednesday" id="9_00"></td>
+            <td class="wednesday" id="9_30"></td>
+            <td class="wednesday" id="10_00"></td>
+            <td class="wednesday" id="10_30"></td>
+            <td class="wednesday" id="11_00"></td>
+            <td class="wednesday" id="11_30"></td>
+            <td class="wednesday" id="12_00"></td>
+            <td class="wednesday" id="12_30"></td>
+            <td class="wednesday" id="13_00"></td>
+            <td class="wednesday" id="13_30"></td>
+            <td class="wednesday" id="14_00"></td>
+            <td class="wednesday" id="14_30"></td>
+            <td class="wednesday" id="15_00"></td>
+            <td class="wednesday" id="15_30"></td>
+            <td class="wednesday" id="16_00"></td>
+            <td class="wednesday" id="16_30"></td>
+            <td class="wednesday" id="17_00"></td>
+            <td class="wednesday" id="17_30"></td>
+            
+            
+        </tr>
+        <tr>
+            <!-- <th scope="row"></th> -->
+            <td>Thursday</td>
+            
+            <td class="thursday" id="7_00"></td>
+            <td class="thursday" id="7_30"></td>
+            <td class="thursday" id="8_00"></td>
+            <td class="thursday" id="8_30"></td>
+            <td class="thursday" id="9_00"></td>
+            <td class="thursday" id="9_30"></td>
+            <td class="thursday" id="10_00"></td>
+            <td class="thursday" id="10_30"></td>
+            <td class="thursday" id="11_00"></td>
+            <td class="thursday" id="11_30"></td>
+            <td class="thursday" id="12_00"></td>
+            <td class="thursday" id="12_30"></td>
+            <td class="thursday" id="13_00"></td>
+            <td class="thursday" id="13_30"></td>
+            <td class="thursday" id="14_00"></td>
+            <td class="thursday" id="14_30"></td>
+            <td class="thursday" id="15_00"></td>
+            <td class="thursday" id="15_30"></td>
+            <td class="thursday" id="16_00"></td>
+            <td class="thursday" id="16_30"></td>
+            <td class="thursday" id="17_00"></td>
+            <td class="thursday" id="17_30"></td>
+            
+            
+        </tr>
+        <tr>
+            <td>Fridy</td>
+            
+            <td class="friday" id="7_00"></td>
+            <td class="friday" id="7_30"></td>
+            <td class="friday" id="8_00"></td>
+            <td class="friday" id="8_30"></td>
+            <td class="friday" id="9_00"></td>
+            <td class="friday" id="9_30"></td>
+            <td class="friday" id="10_00"></td>
+            <td class="friday" id="10_30"></td>
+            <td class="friday" id="11_00"></td>
+            <td class="friday" id="11_30"></td>
+            <td class="friday" id="12_00"></td>
+            <td class="friday" id="12_30"></td>
+            <td class="friday" id="13_00"></td>
+            <td class="friday" id="13_30"></td>
+            <td class="friday" id="14_00"></td>
+            <td class="friday" id="14_30"></td>
+            <td class="friday" id="15_00"></td>
+            <td class="friday" id="15_30"></td>
+            <td class="friday" id="16_00"></td>
+            <td class="friday" id="16_30"></td>
+            <td class="friday" id="17_00"></td>
+            <td class="friday" id="17_30"></td>
+            
+            
+        </tr>
+        <tr>
+            <td>Saturday</td>
+            
+            <td class="saturday" id="7_00"></td>
+            <td class="saturday" id="7_30"></td>
+            <td class="saturday" id="8_00"></td>
+            <td class="saturday" id="8_30"></td>
+            <td class="saturday" id="9_00"></td>
+            <td class="saturday" id="9_30"></td>
+            <td class="saturday" id="10_00"></td>
+            <td class="saturday" id="10_30"></td>
+            <td class="saturday" id="11_00"></td>
+            <td class="saturday" id="11_30"></td>
+            <td class="saturday" id="12_00"></td>
+            <td class="saturday" id="12_30"></td>
+            <td class="saturday" id="13_00"></td>
+            <td class="saturday" id="13_30"></td>
+            <td class="saturday" id="14_00"></td>
+            <td class="saturday" id="14_30"></td>
+            <td class="saturday" id="15_00"></td>
+            <td class="saturday" id="15_30"></td>
+            <td class="saturday" id="16_00"></td>
+            <td class="saturday" id="16_30"></td>
+            <td class="saturday" id="17_00"></td>
+            <td class="saturday" id="17_30"></td>
+            
+        </tr>
+        <tr>
+            <td>Sunday</td>
+            
+            <td class="sunday" id="7_00"></td>
+            <td class="sunday" id="7_30"></td>
+            <td class="sunday" id="8_00"></td>
+            <td class="sunday" id="8_30"></td>
+            <td class="sunday" id="9_00"></td>
+            <td class="sunday" id="9_30"></td>
+            <td class="sunday" id="10_00"></td>
+            <td class="sunday" id="10_30"></td>
+            <td class="sunday" id="11_00"></td>
+            <td class="sunday" id="11_30"></td>
+            <td class="sunday" id="12_00"></td>
+            <td class="sunday" id="12_30"></td>
+            <td class="sunday" id="13_00"></td>
+            <td class="sunday" id="13_30"></td>
+            <td class="sunday" id="14_00"></td>
+            <td class="sunday" id="14_30"></td>
+            <td class="sunday" id="15_00"></td>
+            <td class="sunday" id="15_30"></td>
+            <td class="sunday" id="16_00"></td>
+            <td class="sunday" id="16_30"></td>
+            <td class="sunday" id="17_00"></td>
+            <td class="sunday" id="17_30"></td>
+            
+            
+        </tr>    
+    </tbody>
+</table>
+</div>
+
+</div>
+<br>
+<br><br>
+<div class="container"  style="font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; ">
+    <div class="table-responsive">
+        <table class="table table-bordered" >
+            <thead>
+                <tr>
+                    
+                    <th scope="col" class="col">#</th>
+                    <!-- <th scope="col"></th> -->
+                    <th scope="col" class="col col-sm" id='detail-color'>Color</th>
+                    <!-- <th scope="col"></th> -->
+                    <th scope="col" class="col" id='detail-code'>Course Code</th>
+                    <th scope="col" class="col" id='detail-name'>Course Name</th>
+                    <th scope="col" class="col" id='detail-prof-name'>Professor Name</th>
+                    <!-- <th scope="col">Professor Name</th>
+                        <th scope="col">Description</th> -->
+                
+                </tr>
+            </thead>
+            <tbody id='detail-table-body'>
+
+            </tbody>
+            
+        </table>
+    </div>
+</div>
+
+
+{{ registered_course|json_script:"registered_course" }}
+<script>
+    function on_load_func() {
+        var mydata = JSON.parse(document.getElementById('registered_course').textContent);
+        // console.log(mydata);
+        // purple '#7FFFD4'
+        // gold '#FFD700'
+        // aqua '#00FFFF'
+
+        //'#A52A2A'
+        // var colors=['#FFD700','#00FFFF','#FF7F50','#DC143C','#7FFFD4','#8A2BE2','#A52A2A','yellow','green','blue','orange','purple','black','red']
+        var colors=['#FAEBD7','#FFD700','#00FFFF','#7FFFD4','#8A2BE2','#A52A2A','yellow','green','blue','orange','purple','black','red']
+        
+        var ind=0;
+        for (var i = 0; i < mydata.length; i++){
+            var obj = mydata[i];
+        
+            if(mydata[i]['days']){
+                for (var j=0;j<mydata[i]['days'].length;j++){
+                    day_element=document.getElementsByClassName(mydata[i]['days'][j]);
+                    var s_time=obj['start'].split(':')
+                    var s_time_ = s_time[0]+"_"+s_time[1]
+                    var e_time=obj['end'].split(':')
+                    var e_time_ = e_time[0]+"_"+e_time[1]
+                    var k=0;
+                    while(k<day_element.length){
+                        if(day_element[k].id >= s_time_ && day_element[k].id <=e_time_){
+                            day_element[k].style.backgroundColor=colors[ind];
+                            
+                        }
+                        k++;
+                        }
+                    }
+
+
+                }
+            var details_table=document.getElementById('detail-table-body')
+            details_table.innerHTML+=`<tr><td >${i+1}</td><td id="add-color${i+1}"></td><td>${mydata[i]["course_id"]}</td><td>${mydata[i]["name"]}</td><td>${mydata[i]["prof_name"]}</td></tr>`
+            var id=`add-color${i+1}`;
+            var to_color=document.getElementById(id);
+            to_color.style.backgroundColor=colors[ind];
+            ind++;
+            }
+        
+        
+}
+    
+
+    window.onload = on_load_func;
+</script>
+
+ {% endblock%}
