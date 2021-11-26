@@ -2,7 +2,7 @@
 
 
 {% block navbar_brand %}
-    <a class="navbar-brand" href="home">Home</a>
+<a class="navbar-brand" href="home">Home</a>
 {% endblock%}
 
 {% block navbar_items %}
@@ -22,21 +22,45 @@
 
 <!-- <li class="nav-item">
     <a class="nav-link" href="signout">Logout</a>
-  </li> -->
+</li> -->
 
 <!-- <a class="nav-item nav-link myitem" href="pick_course">Course Selection</a>
     
-        <a class="nav-item nav-link myitem" href="signout">Logout</a>
+    <a class="nav-item nav-link myitem" href="signout">Logout</a>
     
-        <a class="nav-item nav-link myitem" href="signin">Login</a>
-        <a class="nav-item nav-link myitem" href="signup">Sign Up</a>
-     -->
+    <a class="nav-item nav-link myitem" href="signin">Login</a>
+    <a class="nav-item nav-link myitem" href="signup">Sign Up</a>
+-->
+{% block styles %}
+<style>
+    #my-a {
+        text-decoration: none;
+        color: black;
+        /* background-color:  burlywood; */
 
+    }
+</style>
 
-
+{% endblock%}
 
 {% block content %}
 {% if user.is_authenticated %}
+
+<div class="container-fluid " style="text-align:center;">
+    <div class="alert alert-primary" role="alert">
+        <h4>Welcome! {{user_name}}</h4>
+        <br>
+        {% if number_registered_courses %}
+        <h5>This is your current weekly schedule</h5>
+        <h5>Head over <a href="pick_course" id="my-a">here</a> to update your courses </h5>
+        {% else %}
+        <h5>You havent registered for any courses yet</h5>
+        <h5>Head over <a href="pick_course" id="my-a">here</a> to pick some courses </h5>
+        {% endif %}
+    </div>
+</div>
+
+{% if number_registered_courses %}
 <div class="container" style="font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; ">
     <div class="table-responsive">
         <table class="table  table-hover tsable-light  ">
@@ -44,8 +68,8 @@
                 <tr>
                     <th scope="col">Day</th>
 
-                    <th scope="col">7:00</th>
-                    <th scope="col" style="opacity: 0;">1</th>
+                    <!-- <th scope="col">7:00</th>
+                    <th scope="col" style="opacity: 0;">1</th> -->
                     <th scope="col">8:00</th>
                     <th scope="col" style="opacity: 0;">1</th>
                     <th scope="col">9:00</th>
@@ -73,8 +97,8 @@
                 <tr>
                     <td>Monday</td>
 
-                    <td class="monday" id="7_00"></td>
-                    <td class="monday" id="7_30"></td>
+                    <!-- <td class="monday" id="7_00"></td>
+                    <td class="monday" id="7_30"></td> -->
                     <td class="monday" id="8_00"></td>
                     <td class="monday" id="8_30"></td>
                     <td class="monday" id="9_00"></td>
@@ -102,8 +126,8 @@
                 <tr>
                     <td>Tuesday</td>
 
-                    <td class="tuesday" id="7_00"></td>
-                    <td class="tuesday" id="7_30"></td>
+                    <!-- <td class="tuesday" id="7_00"></td>
+                    <td class="tuesday" id="7_30"></td> -->
                     <td class="tuesday" id="8_00"></td>
                     <td class="tuesday" id="8_30"></td>
                     <td class="tuesday" id="9_00"></td>
@@ -130,8 +154,8 @@
                 <tr>
                     <td>Wednesday</td>
 
-                    <td class="wednesday" id="7_00"></td>
-                    <td class="wednesday" id="7_30"></td>
+                    <!-- <td class="wednesday" id="7_00"></td>
+                    <td class="wednesday" id="7_30"></td> -->
                     <td class="wednesday" id="8_00"></td>
                     <td class="wednesday" id="8_30"></td>
                     <td class="wednesday" id="9_00"></td>
@@ -159,8 +183,8 @@
                     <!-- <th scope="row"></th> -->
                     <td>Thursday</td>
 
-                    <td class="thursday" id="7_00"></td>
-                    <td class="thursday" id="7_30"></td>
+                    <!-- <td class="thursday" id="7_00"></td> -->
+                    <!-- <td class="thursday" id="7_30"></td> -->
                     <td class="thursday" id="8_00"></td>
                     <td class="thursday" id="8_30"></td>
                     <td class="thursday" id="9_00"></td>
@@ -187,8 +211,8 @@
                 <tr>
                     <td>Friday</td>
 
-                    <td class="friday" id="7_00"></td>
-                    <td class="friday" id="7_30"></td>
+                    <!-- <td class="friday" id="7_00"></td> -->
+                    <!-- <td class="friday" id="7_30"></td> -->
                     <td class="friday" id="8_00"></td>
                     <td class="friday" id="8_30"></td>
                     <td class="friday" id="9_00"></td>
@@ -215,8 +239,8 @@
                 <tr>
                     <td>Saturday</td>
 
-                    <td class="saturday" id="7_00"></td>
-                    <td class="saturday" id="7_30"></td>
+                    <!-- <td class="saturday" id="7_00"></td> -->
+                    <!-- <td class="saturday" id="7_30"></td> -->
                     <td class="saturday" id="8_00"></td>
                     <td class="saturday" id="8_30"></td>
                     <td class="saturday" id="9_00"></td>
@@ -242,8 +266,8 @@
                 <tr>
                     <td>Sunday</td>
 
-                    <td class="sunday" id="7_00"></td>
-                    <td class="sunday" id="7_30"></td>
+                    <!-- <td class="sunday" id="7_00"></td> -->
+                    <!-- <td class="sunday" id="7_30"></td> -->
                     <td class="sunday" id="8_00"></td>
                     <td class="sunday" id="8_30"></td>
                     <td class="sunday" id="9_00"></td>
@@ -299,6 +323,7 @@
         </table>
     </div>
 </div>
+{% endif %}
 
 
 {{ registered_course|json_script:"registered_course" }}

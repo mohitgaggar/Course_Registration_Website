@@ -17,12 +17,18 @@ def get_user_object(user_id):
 def home(request):    
     if(request.user.username=='admin'):
         return render(request,'admin.html')
-    data={}
+
+    name=get_user_object(request.user.username).name
+
+    data={'user_name':name}
     try:
         user_id=request.user.username
         course_ids=user_registered_courses(user_id)
         registered_courses_objects=get_course_objects(course_ids)
         courses=[]
+        
+        data['number_registered_courses']=len(registered_courses_objects)
+        
         days_of_week={'M':'monday','T':'tuesday','W':'wednesday','Th':'thursday','F':'friday',"Sa":'saturday',"S":"saturday","Su":'sunday'}
         for i in registered_courses_objects:
             if(i.days):

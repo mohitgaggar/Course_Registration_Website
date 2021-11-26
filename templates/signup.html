@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block navbar_brand %}
-	<a class="navbar-brand" href="#">Sign Up</a>
+	<!-- <a class="navbar-brand" href="#">Sign Up</a> -->
 {% endblock%}
 
 {% block navbar_items %}
-<a class="nav-item nav-link" href="home">Home</a>
+<!-- <a class="nav-item nav-link" href="home">Home</a> -->
 
-<a class="nav-item nav-link" href="signin">Sign In</a>
-<a class="nav-item nav-link" href="pick_course">Choose Courses</a>
+<!-- <a class="nav-item nav-link" href="signin">Sign In</a> -->
+<!-- <a class="nav-item nav-link" href="pick_course">Choose Courses</a> -->
 {% endblock %}
 
 {% block styles %}
@@ -68,6 +68,28 @@
 	border-top-right-radius: 0;
 	}
 
+
+  .mycl{
+		/* margin-top: 2vh; */
+		text-align:center;
+	}
+
+	#sign-in-a{
+		text-decoration: none;
+		color:gray;
+		/* background-color:  burlywood; */
+
+	}
+	img{
+        /* display:block; */
+        width:60%; height:30%;
+        /* object-fit: cover; */
+        }
+	
+	.mycont{
+		margin-top: 10vh;
+		text-align:center;
+	}
   </style>
   <!-- <link href="signin.css" rel="stylesheet"> -->
 {% endblock %}
@@ -76,6 +98,14 @@
 
 {% block content %}
  
+<div class="container-fluid mycont">
+  <!-- <h2 >Welcome to the course registration website!</h2>
+  <br> -->
+  <h3 >Create A New Account</h3>
+  <!-- <a href="/signin" ><button class="btn btn-outline-success" >Login</button></a> -->
+  <!-- <img src="static/2.jpg" alt="Intro image"> -->
+</div>
+
 <div class="container">
         
   <main class="form-signin">
@@ -106,6 +136,8 @@
           
           <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
       </form>
+      <br>
+      <p class="mycl">Returning User?<a href="signin" id="sign-in-a"> Sign In</a></p>
   </main>
 </div>
 

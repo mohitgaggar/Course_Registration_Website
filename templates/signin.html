@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
 {% block navbar_brand %}
-	<a class="navbar-brand" href="#">Sign In</a>
+	<!-- <a class="navbar-brand" href="#">Sign In</a> -->
 {% endblock%}
 
 {% block navbar_items %}
-<a class="nav-item nav-link" href="home">Home</a>
+<!-- <a class="nav-item nav-link" href="home">Home</a> -->
 
-<a class="nav-item nav-link" href="signup">Sign Up</a>
-<a class="nav-item nav-link" href="pick_course">Choose Courses</a>
-{% endblock %}
+<!-- <a class="nav-item nav-link" href="signup">Sign Up</a> -->
+<!-- <a class="nav-item nav-link" href="pick_course">Choose Courses</a> -->
+{% endblock %} 
 
 {% block styles %}
 <style>
@@ -30,6 +30,7 @@
 	html,
 	body{
 	height: 100%;
+	background-color: #f5f5f5;
 	}
 
 	/* body{ */
@@ -38,7 +39,7 @@
 	align-items: center;
 	padding-top: 40px;
 	padding-bottom: 40px;
-	background-color: #f5f5f5;
+	/* background-color: #f5f5f5; */
 	}
 
 	.form-signin {
@@ -46,6 +47,7 @@
 	max-width: 330px;
 	padding: 15px;
 	margin: auto;
+	/* margin-top: 20vh; */
 	}
 
 	.form-signin .checkbox {
@@ -68,6 +70,28 @@
 	border-top-right-radius: 0;
 	}
 
+	.mycl{
+		/* margin-top: 2vh; */
+		text-align:center;
+	}
+
+	#sign-up-a{
+		text-decoration: none;
+		color:gray;
+		/* background-color:  burlywood; */
+
+	}
+	img{
+        /* display:block; */
+        width:60%; height:30%;
+        /* object-fit: cover; */
+        }
+	
+	.mycont{
+		margin-top: 10vh;
+		text-align:center;
+	}
+
   </style>
   <!-- <link href="signin.css" rel="stylesheet"> -->
 {% endblock %}
@@ -75,10 +99,17 @@
 
 {% block content %}
         <!-- <h3>Sign In</h3><br> -->
+		<div class="container-fluid mycont">
+			<h2 >Welcome to the course registration website!</h2>
+			<br>
+			<h3 >Please Login to continue</h3>
+			<!-- <a href="/signin" ><button class="btn btn-outline-success" >Login</button></a> -->
+			<!-- <img src="static/2.jpg" alt="Intro image"> -->
+		</div>
 		<div  id='sign_in_div'>
         
 			<main class="form-signin">
-				<form method="post" action="/signin">
+				<form method="post" action="/signin" >
 					{% csrf_token %}
 	
 					<!-- <h1 class="h3 mb-3 fw-normal">Please sign in</h1> -->
@@ -99,7 +130,10 @@
 					<!-- </div> -->
 					<button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
 				</form>
+				<br>
+				<p class="mycl">New User?<a href="signup" id="sign-up-a"> Sign Up</a></p>
 			</main>
+			<!-- <br> -->
 		</div>
 	
 {% endblock %}
