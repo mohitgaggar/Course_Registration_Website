@@ -5,24 +5,35 @@
 	{% endblock%}
 
 	{% block navbar_items %}
-	<a class="nav-item nav-link myitem" href="home">Home</a>
-	<a class="nav-item nav-link myitem" href="signout">Logout</a>
+	<!-- <a class="nav-item nav-link myitem" href="home">Home</a>
+	<a class="nav-item nav-link myitem" href="signout">Logout</a> -->
 	<!-- <a class="nav-item nav-link" href="calendar">Calendar</a> -->
 	<!-- <input class="nav-item ">Search</input> -->
+	<li class="nav-item">
+		<a class="nav-link active" aria-current="page" href="home">Home</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link active" aria-current="page" href="signout">Logout</a>
+	</li>
 	
 	{% endblock%}
 
 	{% block search%}
 	<!-- <nav class="navbar navbar-light bg-light"> -->
-	<span class="nav-item">
+	<!-- <span class="nav-item">
 		<form class="form-inline" style="margin: 0px;" action="/search">
 			<div class="input-group mb-0">
 			<input class="form-control mr-sm-2" name="course_name" placeholder="Search" aria-label="Search">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</div>
 		</form>
-	</span>
-	  <!-- </nav> -->
+	</span> -->
+
+	<form class="d-flex" action="/search" style="margin: 0px;">
+		<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="course_name">
+		<button class="btn btn-outline-success" type="submit">Search</button>
+	</form>
+
 	{% endblock %}
 
 	
@@ -36,15 +47,15 @@
 	
 	
 		function on_load_func() {
-			var mybutton=document.getElementById('my-toggle-button');
-            var myitems=document.getElementsByClassName('myitem');
-            console.log(myitems);
-            var strin='<nav class="navbar bg-dark navbar-dark"><ul class="navbar-nav">';
-            for(j=0;j<myitems.length;j++){
-                strin+=`<li class="nav-item"><a class="nav-link" href=${myitems[j].href}>${myitems[j].innerHTML}</a></li>`;
-            }
-            strin+='</ul></nav>'
-            mybutton.innerHTML=strin;  
+			// var mybutton=document.getElementById('my-toggle-button');
+            // var myitems=document.getElementsByClassName('myitem');
+            // console.log(myitems);
+            // var strin='<nav class="navbar bg-dark navbar-dark"><ul class="navbar-nav">';
+            // for(j=0;j<myitems.length;j++){
+            //     strin+=`<li class="nav-item"><a class="nav-link" href=${myitems[j].href}>${myitems[j].innerHTML}</a></li>`;
+            // }
+            // strin+='</ul></nav>'
+            // mybutton.innerHTML=strin;  
 			var mydata = JSON.parse(document.getElementById('registered_course').textContent);
 			var course_ids=mydata.split(/\s+/)
 			var table=document.getElementById('mytable');
@@ -153,7 +164,7 @@
 		<button type="submit"><i class="fa fa-search">Search</i></button>
 	</form> -->
 
-	<div class="container-fluid">
+	<div class="container">
 		<!-- table-bordered -->
 		<div class="table-responsive">
 		<!-- <table class="table table-bordered table-hover table-light  table-striped table-secondary" id="mytable"> -->

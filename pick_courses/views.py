@@ -8,6 +8,10 @@ from django.http import JsonResponse
 import json
 
 
+def myhome(request):
+    return render(request,'home.html')
+
+
 def get_course_objects(course_id_list):
     courses_obj_list=[]
     for i in course_id_list:

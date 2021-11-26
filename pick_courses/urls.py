@@ -12,4 +12,6 @@ urlpatterns = [
     path('unregister_course',views.unregister_course,name="unregister_course"),
     path('search',views.search,name="search"),
     path('navbar',views.disp_nav,name="disp_nav"),
+    path('myhome',views.myhome,name="myhome"),
+    path('base',views.base,name="base"),
 ]
