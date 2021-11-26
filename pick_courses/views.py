@@ -233,6 +233,8 @@ def take_course(course_id,user_id):
     
 
     can_take_course=1
+
+    # checking for timing clash
     if(user_obj.registered_courses):
         already_registered_courses=list(user_obj.registered_courses.split(','))
         if(course_id in already_registered_courses):
@@ -252,14 +254,16 @@ def take_course(course_id,user_id):
         pass
 
     if(not course_obj.prerequisites):
-        pass
+        can_take_course=1
     
     else:
         
         prerequisites=list(course_obj.prerequisites.split(','))
-        
+        print(prerequisites)
         if(not user_obj.courses_taken):
             can_take_course=0
+            prerequisites_not_taken_ids=prerequisites
+            
         else:
             prev_courses=list(user_obj.courses_taken.split(','))
 
@@ -268,13 +272,24 @@ def take_course(course_id,user_id):
                 prev_courses_dict[i]=1
 
             can_take_course=1
+            prerequisites_not_taken_ids=[]
             for i in prerequisites:
                 if(i not in prev_courses_dict):
                     can_take_course=0
+                    prerequisites_not_taken_ids.append(i)
 
+    if(not can_take_course):
+        prerequisites_not_taken_objects=get_course_objects(prerequisites_not_taken_ids)
+        msg='Failed! You dont have these prerequisites -'
+        for i in prerequisites_not_taken_objects:
+            msg+=' '+i.name+' ,'
+        msg=msg[:-1]
+        print(msg)
+        return {'message':msg}
 
-    if(can_take_course):
+            
 
+    else:
         
         reduce_available_seats(course_obj)
         if(user_obj.registered_courses):
@@ -285,11 +300,8 @@ def take_course(course_id,user_id):
         user_obj.save()
 
         return {'message':'Successfully registered for course'}
-        
-    else:
+ 
 
-        return {'message':'Prerequistites not taken cannot take course!'}
-        
 
 def untake_course(course_id,user_id):
     user_obj = get_user_object(user_id)
