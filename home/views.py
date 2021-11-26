@@ -14,7 +14,9 @@ def get_user_object(user_id):
     Home 
     Renders the homepage only when user is logged in else redirects user to login page
 '''
-def home(request):    
+def home(request): 
+    if(not request.user.is_authenticated):
+        return redirect('/signin')
     if(request.user.username=='admin'):
         return render(request,'admin.html')
 
