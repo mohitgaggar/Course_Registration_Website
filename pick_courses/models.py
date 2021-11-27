@@ -20,3 +20,8 @@ class available_course(course):
     
 
 
+
+# primary key should be a compound key made of the combinarion of course_id and prerequisite_course_id, hence django will automatically create
+class course_prerequsiteCourse(models.Model):
+    course_id=models.CharField(max_length=100)
+    prerequisite_course_id=models.CharField(max_length=100)
