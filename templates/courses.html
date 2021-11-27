@@ -19,7 +19,7 @@
 	
 
 	<form class="d-flex" action="/search" style="margin: 0px;">
-		<input class="form-control me-2" type="search" placeholder="Course Title" aria-label="Search" name="course_name">
+		<input class="form-control me-2" type="search" placeholder="search for a course" aria-label="Search" name="course_name">
 		<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 	</form>
 
@@ -30,18 +30,21 @@
 	
 	{% block content %}
 
-	<div class="container-fluid " style="text-align:center;">
+	<div class="container " style="text-align:center;">
 		<div class="alert alert-primary my-alert" role="alert">
 			<h4>Welcome! <b>{{user_name}}</b></h4>
 			<br>
 			
-			<h5>You can register or unregister for coures here</h5>
-			
+			{% if number_of_courses%}
+			<h5>You can register or unregister for courses here</h5>
+			{% else %}
+			<h5>No courses found</h5>
+			{%endif%}		
 		</div>
 	</div>
 
-
 	
+			
 	
 	{{ registered_course|json_script:"registered_course" }}
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -169,8 +172,9 @@
 
 
 	<br>
-
-
+	
+	{% if number_of_courses %}
+			
 	<div class="container">
 		<!-- table-bordered -->
 		<div class="table-responsive" style="background-color: white;">
@@ -208,6 +212,8 @@
 	</div>
 </div>
 </div>
+
+{% endif %}	
 
 {% endblock%}
 

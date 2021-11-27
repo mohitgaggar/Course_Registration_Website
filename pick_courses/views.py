@@ -8,17 +8,22 @@ from django.http import JsonResponse
 import json
 
 
-def myhome(request):
-    return render(request,'home.html')
 
-
+'''
+    Database Function 
+    Interacts with the database to return a list of tuples from available_course table
+    Takes a list of course Ids and returns a list of course objects
+'''
 def get_course_objects(course_id_list):
     courses_obj_list=[]
     for i in course_id_list:
         courses_obj_list.append(available_course.objects.get(Q(course_id=i)))
     return courses_obj_list
 
-
+'''
+    Helper Function
+    returns all the courses the user has registered for currently
+'''
 def user_registered_courses(user_id):
     user_obj=get_user_object(user_id)
     if(user_obj.registered_courses):
@@ -26,6 +31,7 @@ def user_registered_courses(user_id):
     return []
 
 '''
+    Database Function
     Function to query the db to get myuser object given user_id
 '''
 def get_user_object(user_id):
@@ -33,7 +39,9 @@ def get_user_object(user_id):
 
 
 '''
-    Function to query the db to get course object given course_id
+    Database Function 
+    get a single course object given course_id
+    
 '''
 def get_course_object(course_id):
     return available_course.objects.get(Q(course_id=course_id))
@@ -41,7 +49,8 @@ def get_course_object(course_id):
 
 
 '''
-    Function to query the db to get all courses stored in available_course table
+    Database Function
+    queries the db to get all courses (all rows) stored in available_course table
 '''
 def get_all_courses():
     return available_course.objects.all()
@@ -61,8 +70,8 @@ def get_registered_course_ids(user_id):
 
         return registered_course_ids
         
-    except:
-        pass
+    except Exception:
+        return []
 
 
 '''
@@ -70,25 +79,31 @@ def get_registered_course_ids(user_id):
     all search requr
 '''
 def search(request):
-    # if(request.method=="POST"):
-    name=request.GET.get('course_name')
+    name=request.GET.get('course_name').lower()
+    # name=request.GET.get('course_name')
+    
     if(name==''):
         return redirect('/pick_course')
     courses_matching=[]
     all_courses=get_all_courses()
     for i in all_courses:
-        if(name in i.name):
-            courses_matching.append(i)
-
+        # if(name in i.name.lower() or name in i.course_id.lower() or name  or name in i.prof_name.lower() or name in i.prof_id.lower()):
+        # if(name in i.name or name in i.course_id or name  or name in i.prof_name or name in i.prof_id):
+        try:
+            if((name in i.name.lower() ) or (name in i.course_id.lower()) or (name in i.prof_name.lower()) or (name in i.prof_id.lower())):
+                courses_matching.append(i)
+        except Exception as e:
+            pass
     passing_obj={'courses' : courses_matching}
-
+    passing_obj['user_name'] = get_user_object(request.user.username).name
+    passing_obj['number_of_courses']=len(courses_matching)
     passing_obj['registered_course']=get_registered_course_ids(request.user.username)
+
 
    
 
     return render(request,'courses.html',passing_obj)
 
-    return redirect('/pick_course')
 
 '''
     Function to unregister this course from all users
@@ -374,6 +389,7 @@ def display_courses(request):
 
     all_courses = get_all_courses()
     passing_obj={'courses' : all_courses}
+    passing_obj['number_of_courses']=len(all_courses)
     
     try:
         user_id=request.user.username

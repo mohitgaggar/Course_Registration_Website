@@ -11,7 +11,5 @@ urlpatterns = [
     path('register_course',views.register_course,name="register_course"),
     path('unregister_course',views.unregister_course,name="unregister_course"),
     path('search',views.search,name="search"),
-    path('navbar',views.disp_nav,name="disp_nav"),
-    path('myhome',views.myhome,name="myhome"),
-    path('base',views.base,name="base"),
+
 ]

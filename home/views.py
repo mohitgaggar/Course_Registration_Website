@@ -62,7 +62,6 @@ def signin_user(request):
         user_exists = authenticate(username=user_id, password=password)
         if(user_exists is not None):
             login(request,user_exists)
-            print("login successful")
             return redirect('home')
         else:
             return render(request,'signin.html',{"message":"Login Failed, Please Retry"})
@@ -82,12 +81,10 @@ def signup_user(request):
         user_id=request.POST.get('user_id')
         email=request.POST.get('email')
         password=request.POST.get('password')
-        # print("User details----",name,email,password)
 
-        # check if user_id exists
+        # to check if user_id exists 
         try:
             get_user_object(user_id)
-            print("already exists")
             return render(request,'signup.html',{"message":"User Id already taken"})
         except:
             pass
