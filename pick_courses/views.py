@@ -445,10 +445,10 @@ def add_courses(request):
     Function to unregister the required course from all users
     Only admin can access
 '''
-# def remove_course_from_all_users(course_id):
-#     users=myuser.objects.all()
-#     for i in users:
-#         untake_course(course_id,i.user_id)
+def remove_course_from_all_users(course_id):
+    users=myuser.objects.all()
+    for i in users:
+        untake_course(course_id,i.user_id)
     
 '''
     Controller function to delete a course
@@ -523,7 +523,7 @@ def update_course(request):
                 course_obj.end_time=end_time    
 
             course_obj.save()
-            # remove_course_from_all_users(course_id)
+            remove_course_from_all_users(course_id)
 
         return render(request,'update_course.html')
     else:
