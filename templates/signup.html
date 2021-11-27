@@ -26,6 +26,7 @@
 	html,
 	body{
 	height: 100%;
+	background-color: lightcyan	;
 	}
 
 	/* body{ */
@@ -95,16 +96,16 @@
 
  
 {%if signedup %}
-<div class="container-fluid mycont"  style="text-align: center; margin-top: 35vh;">
-	<div class="alert alert-primary" role="alert">
+<div class="container mycont"  style="text-align: center; margin-top: 30vh;">
+	<div class="alert alert-primary" role="alert" style=" padding: 10vh; background-color:#FF9B6A; color:#161E54 ;">
 	
 		<h2>{{message}}</h2>
 		<a href="/signin" ><button class="btn btn-outline-success" >Login</button></a>
 	</div>
 </div>
 {% else %}
-<div class="container mycont">
-	<div class="alert alert-primary" role="alert">
+<div class="container-fluid mycont">
+	<div class="alert alert-primary" role="alert" style="background-color:#FF9B6A; color:#161E54 ;">
 	{%if message %}
 		<h2>{{message}}</h2>
 	{% endif %}

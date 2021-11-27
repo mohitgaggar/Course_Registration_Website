@@ -47,7 +47,7 @@
 {% if user.is_authenticated %}
 
 <div class="container-fluid " style="text-align:center;">
-    <div class="alert alert-primary" role="alert">
+    <div class="alert alert-primary my-alert" role="alert">
         <h4>Welcome! {{user_name}}</h4>
         <br>
         {% if number_registered_courses %}
@@ -61,7 +61,7 @@
 </div>
 
 {% if number_registered_courses %}
-<div class="container" style="font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; ">
+<div class="container" style="font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; background-color: white;">
     <div class="table-responsive">
         <table class="table  table-hover tsable-light  ">
             <thead>
@@ -298,9 +298,9 @@
 </div>
 <br>
 <br><br>
-<div class="container" style="font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; ">
+<div class="container" style="font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; background-color: white;">
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table ">
             <thead>
                 <tr>
 
@@ -311,8 +311,8 @@
                     <th scope="col" class="col" id='detail-code'>Course Code</th>
                     <th scope="col" class="col" id='detail-name'>Course Name</th>
                     <th scope="col" class="col" id='detail-prof-name'>Professor Name</th>
-                    <!-- <th scope="col">Professor Name</th>
-                            <th scope="col">Description</th> -->
+                    <th scope="col" class="col" id='detail-timing'>Timing</th>
+                    
 
                 </tr>
             </thead>
@@ -375,7 +375,7 @@
 
             }
             var details_table = document.getElementById('detail-table-body')
-            details_table.innerHTML += `<tr><td >${i + 1}</td><td id="add-color${i + 1}"></td><td>${mydata[i]["course_id"]}</td><td>${mydata[i]["name"]}</td><td>${mydata[i]["prof_name"]}</td></tr>`
+            details_table.innerHTML += `<tr><td >${i + 1}</td><td id="add-color${i + 1}"></td><td>${mydata[i]["course_id"]}</td><td>${mydata[i]["name"]}</td><td>${mydata[i]["prof_name"]}</td><td>${mydata[i]["start"]} - ${mydata[i]["end"]}</td></tr>`
             var id = `add-color${i + 1}`;
             var to_color = document.getElementById(id);
             to_color.style.backgroundColor = colors[ind];

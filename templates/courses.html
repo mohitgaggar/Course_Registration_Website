@@ -41,6 +41,18 @@
 	{% endblock %}
 	
 	{% block content %}
+
+	<div class="container-fluid " style="text-align:center;">
+		<div class="alert alert-primary my-alert" role="alert">
+			<h4>Welcome! {{user_name}}</h4>
+			<br>
+			
+			<h5>You can register or unregister for coures here</h5>
+			
+		</div>
+	</div>
+
+
 	
 	
 	{{ registered_course|json_script:"registered_course" }}
@@ -70,13 +82,21 @@
 				if(course_ids.includes(elem)){
 					regButton.setAttribute( "onClick", "javascript: unreg(this);" ) 
 					regButton.innerText="Unregister";
-					regButton.style.backgroundColor="00FFFF"
+					// regButton.style.backgroundColor="00FFFF"
+					regButton.style.backgroundColor="2FDD92"
+					
+					
+					regButton.style.color="white"
+					regButton.style.backgroundColor="FF5151"
 				}
 				
 				else{
 					regButton.setAttribute( "onClick", "javascript: reg(this);" ) 
 					regButton.innerHTML="Register";
-					regButton.style.backgroundColor="7CFC00"
+					// regButton.style.backgroundColor="7CFC00"
+					regButton.style.backgroundColor="34BE82"
+					regButton.style.color="white"
+					// regButton.style.backgroundColor="161E54"
 				
 				}
 				
@@ -127,11 +147,21 @@
 		
 		function unreg(argThis){
 			
+			
 			var row = argThis.parentNode.parentNode
 			var course_id = row.children[0].innerHTML
 			var course_name = row.children[1].innerHTML
+			
+			var r = confirm(`Are You Sure You Want to Unregister for ${course_name}`);
+			if (r == true) {
+			} 
+			else {
+				return;
+			}
+				
+			
 		
-			console.log(course_id,course_name ,"was selected");
+			// console.log(course_id,course_name ,"was selected");
 			let data={};
 			data.course_id=course_id;
 			data.course_name=course_name;
@@ -160,17 +190,11 @@
 
 
 	<br>
-	<!-- <form action="/search" method="post"> -->
-	<!-- {% csrf_token %} -->
-	<!-- <form action="/search">
-		<input type="text" placeholder="course name" name="course_name">
-		<button type="submit"><i class="fa fa-search">Search</i></button>
-	</form> -->
-	
+
 
 	<div class="container">
 		<!-- table-bordered -->
-		<div class="table-responsive">
+		<div class="table-responsive" style="background-color: white;">
 		<!-- <table class="table table-bordered table-hover table-light  table-striped table-secondary" id="mytable"> -->
 		<table class="table  table-hover  " id="mytable" style="font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif; ">
 			<thead>
@@ -189,8 +213,7 @@
 			</thead>
 			<tbody>
 			{% for i in courses%}
-				<tr >
-					<!-- <th scope="row">j</th> -->
+				<tr>
 					<td name='course_id' id="course_id" value='{{i.course_id}}'>{{i.course_id}}</td>
 					<td name='course_name'id="course_name">{{i.name}}</td>
 					<td>{{i.prof_name}}</td>
@@ -198,7 +221,6 @@
 					<td>{{i.days}}</td>
 					<td>{{i.start_time}}</td>
 					<td>{{i.end_time}}</td>
-					<!-- <td></td> -->
 					<td><button onclick='reg(this)' class="btn btn-sm"></button></td>
 				</tr>
 			{% endfor %}
