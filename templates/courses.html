@@ -5,10 +5,7 @@
 	{% endblock%}
 
 	{% block navbar_items %}
-	<!-- <a class="nav-item nav-link myitem" href="home">Home</a>
-	<a class="nav-item nav-link myitem" href="signout">Logout</a> -->
-	<!-- <a class="nav-item nav-link" href="calendar">Calendar</a> -->
-	<!-- <input class="nav-item ">Search</input> -->
+
 	<li class="nav-item">
 		<a class="nav-link active" aria-current="page" href="home">Home</a>
 	</li>
@@ -19,19 +16,10 @@
 	{% endblock%}
 
 	{% block search%}
-	<!-- <nav class="navbar navbar-light bg-light"> -->
-	<!-- <span class="nav-item">
-		<form class="form-inline" style="margin: 0px;" action="/search">
-			<div class="input-group mb-0">
-			<input class="form-control mr-sm-2" name="course_name" placeholder="Search" aria-label="Search">
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-			</div>
-		</form>
-	</span> -->
+	
 
 	<form class="d-flex" action="/search" style="margin: 0px;">
 		<input class="form-control me-2" type="search" placeholder="Course Title" aria-label="Search" name="course_name">
-		<!-- <button class="btn btn-outline-success" type="submit" style="background-color: white;"><span class="glyphicon glyphicon-search">Search</span></button> -->
 		<button type="submit" class="btn btn-outline-success"><i class="fa fa-search"></i></button>
 	</form>
 
@@ -62,15 +50,7 @@
 	
 	
 		function on_load_func() {
-			// var mybutton=document.getElementById('my-toggle-button');
-            // var myitems=document.getElementsByClassName('myitem');
-            // console.log(myitems);
-            // var strin='<nav class="navbar bg-dark navbar-dark"><ul class="navbar-nav">';
-            // for(j=0;j<myitems.length;j++){
-            //     strin+=`<li class="nav-item"><a class="nav-link" href=${myitems[j].href}>${myitems[j].innerHTML}</a></li>`;
-            // }
-            // strin+='</ul></nav>'
-            // mybutton.innerHTML=strin;  
+			
 			var mydata = JSON.parse(document.getElementById('registered_course').textContent);
 			var course_ids=mydata.split(/\s+/)
 			var table=document.getElementById('mytable');
@@ -82,7 +62,6 @@
 				if(course_ids.includes(elem)){
 					regButton.setAttribute( "onClick", "javascript: unreg(this);" ) 
 					regButton.innerText="Unregister";
-					// regButton.style.backgroundColor="00FFFF"
 					regButton.style.backgroundColor="2FDD92"
 					
 					

@@ -6,6 +6,7 @@ from django.db.models import Q
 from pick_courses.views import *
 from django.http import HttpResponseServerError, HttpResponseNotFound
 
+
 def get_user_object(user_id):
     return myuser.objects.get(Q(user_id=user_id))
 
