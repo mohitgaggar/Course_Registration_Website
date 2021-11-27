@@ -35,9 +35,8 @@
 <style>
     #my-a {
         text-decoration: none;
-        color: black;
-        /* background-color:  burlywood; */
-
+        color: green;
+        
     }
 </style>
 
@@ -48,14 +47,14 @@
 
 <div class="container-fluid " style="text-align:center;">
     <div class="alert alert-primary my-alert" role="alert">
-        <h4>Welcome! {{user_name}}</h4>
+        <h4>Welcome! <b>{{user_name}}</b></h4>
         <br>
         {% if number_registered_courses %}
         <h5>This is your current weekly schedule</h5>
-        <h5>Head over <a href="pick_course" id="my-a">here</a> to update your courses </h5>
+        <h5>Head over <a href="pick_course" id="my-a"><b>here</b></a> to update your courses </h5>
         {% else %}
         <h5>You havent registered for any courses yet</h5>
-        <h5>Head over <a href="pick_course" id="my-a">here</a> to pick some courses </h5>
+        <h5>Head over <a href="pick_course" id="my-a"><b>here</b></a> to pick some courses </h5>
         {% endif %}
     </div>
 </div>
