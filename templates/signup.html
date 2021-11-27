@@ -83,23 +83,36 @@
         }
 	
 	.mycont{
-		margin-top: 10vh;
+		/* margin-top: 10vh; */
 		text-align:center;
+		margin-bottom: 8vh;
 	}
   </style>
   <!-- <link href="signin.css" rel="stylesheet"> -->
 
 </head>
 <body>
-  
 
  
-<div class="container-fluid mycont">
-  <!-- <h2 >Welcome to the course registration website!</h2>
-  <br> -->
-  <h3 >Create A New Account</h3>
-  <!-- <a href="/signin" ><button class="btn btn-outline-success" >Login</button></a> -->
-  <!-- <img src="static/2.jpg" alt="Intro image"> -->
+{%if signedup %}
+<div class="container-fluid mycont"  style="text-align: center; margin-top: 35vh;">
+	<div class="alert alert-primary" role="alert">
+	
+		<h2>{{message}}</h2>
+		<a href="/signin" ><button class="btn btn-outline-success" >Login</button></a>
+	</div>
+</div>
+{% else %}
+<div class="container mycont">
+	<div class="alert alert-primary" role="alert">
+	{%if message %}
+		<h2>{{message}}</h2>
+	{% endif %}
+		<h3 >Create A New Account</h3>
+		<!-- <h2>Welcome to the course registration website!</h2> -->
+		<!-- <br> -->
+		<!-- <h3>Please Login to continue</h3> -->
+	</div>
 </div>
 
 <div class="container">
@@ -109,24 +122,26 @@
           {% csrf_token %}
 
           
+			
+
           <div class="form-floating">
           <input type="name" class="form-control" id="floatingInput" placeholder="name" name="name">
-          <label for="floatingInput">Full Name</label>
+          <label for="floatingInput" style="opacity: 0.7;">Full Name</label>
           </div>
 
           
           <div class="form-floating">
           <input type="text" class="form-control" id="floatingInput" placeholder="Registration ID" name="user_id">
-          <label for="floatingInput">Registration Id</label>
+          <label for="floatingInput" style="opacity: 0.7;">Student ID / Employee ID</label>
           </div>
 
           <div class="form-floating">
           <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
-          <label for="floatingInput">Email address</label>
+          <label for="floatingInput" style="opacity: 0.7;">Enail ID</label>
           </div>
           <div class="form-floating">
           <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-          <label for="floatingPassword">Password</label>
+          <label for="floatingPassword" style="opacity: 0.7;">Password</label>
           </div>
 
           
@@ -136,6 +151,8 @@
       <p class="mycl">Returning User?<a href="signin" id="sign-in-a"> Sign In</a></p>
   </main>
 </div>
+
+{% endif %}
 
 
 </body>

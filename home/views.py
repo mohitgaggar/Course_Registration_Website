@@ -47,8 +47,8 @@ def home(request):
     
     return render(request,'index.html',data)
 
-   
 
+    
 
 '''
     Sign in method using django auth
@@ -64,7 +64,7 @@ def signin_user(request):
             print("login successful")
             return redirect('home')
         else:
-            return render(request,'signin.html')
+            return render(request,'signin.html',{"message":"Login Failed, Please Retry"})
     
     return render(request,"signin.html")
 
@@ -81,8 +81,16 @@ def signup_user(request):
         user_id=request.POST.get('user_id')
         email=request.POST.get('email')
         password=request.POST.get('password')
-        print("User details----",name,email,password)
+        # print("User details----",name,email,password)
 
+        # check if user_id exists
+        try:
+            get_user_object(user_id)
+            print("already exists")
+            return render(request,'signup.html',{"message":"User Id already taken"})
+        except:
+            pass
+        
         user_created = User.objects.create_user(username=user_id,
                                  password=password)
         if(user_created):
@@ -90,9 +98,9 @@ def signup_user(request):
             reg = myuser(name=name, email=email, password=password,user_id=user_id)
             reg.save()
 
-            return redirect('signin')
-        else:
-            return render(request,'signup.html')            
+            
+        
+            return render(request,'signup.html',{"message":"Signed Up successfully! Please Login To continue","signedup":1})            
 
         
 

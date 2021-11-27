@@ -77,20 +77,32 @@
 			margin-top: 10vh;
 			text-align: center;
 		}
+
+
+
 	</style>
 
 
 </head>
 
 <body>
-
-	<div class="container-fluid mycont">
-		<h2>Welcome to the course registration website!</h2>
-		<br>
-		<h3>Please Login to continue</h3>
-		<!-- <a href="/signin" ><button class="btn btn-outline-success" >Login</button></a> -->
-		<!-- <img src="static/2.jpg" alt="Intro image"> -->
+	{% if message%}
+	<div class="container-fluid " style="text-align:center;">
+		<div class="alert alert-primary" role="alert">
+			<h2>{{message}}</h2>
+		</div>
 	</div>
+	{% else %}
+	<div class="container-fluid " style="text-align:center;">
+		<div class="alert alert-primary" role="alert">
+			<h2>Welcome to the course registration website!</h2>
+			<br>
+			<h3>Please Login to continue</h3>
+		</div>
+	</div>
+	{% endif %}
+
+	
 	<div id='sign_in_div'>
 
 		<main class="form-signin">
@@ -100,14 +112,14 @@
 				<!-- <h1 class="h3 mb-3 fw-normal">Please sign in</h1> -->
 
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingInput" placeholder="Registration ID"
-						name="user_id">
-					<label for="floatingInput">Registration Id</label>
+					<input type="text" class="form-control" id="floatingInput" placeholder="Student ID / Employee ID" name="user_id">
+					<label for="floatingInput" style="opacity: 0.7;">Student ID / Employee ID</label>
 				</div>
 				<div class="form-floating">
 					<input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-						name="password">
-					<label for="floatingPassword">Password</label>
+					name="password">
+					<!-- <label for="floatingPassword">Password</label> -->
+					<label for="floatingPassword" style="opacity: 0.7;">Password</label>
 				</div>
 
 				<!-- <div class="checkbox mb-3"> -->
