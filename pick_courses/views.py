@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-from home.models import myuser
-from pick_courses.models import available_course
+from home.models import myuser,user_completedCourse,user_registeredCourse
+from pick_courses.models import available_course,course_prerequsiteCourse
 from django.db.models import Q
 from django.http import JsonResponse
 import json
@@ -65,10 +65,53 @@ def get_all_courses():
     returns all the courses the user has registered for currently
 '''
 def user_registered_courses(user_id):
-    user_obj=get_user_object(user_id)
-    if(user_obj.registered_courses):
-        return [i for i in user_obj.registered_courses.split(',')]
-    return []
+
+    registered_courses=user_registeredCourse.objects.filter(user_id=user_id).select_related().all()
+
+    
+    # user_obj=get_user_object(user_id)
+    return [i.course_id for i in registered_courses]
+
+def delete_registered_course(user_id,course_id):
+    obj=user_registeredCourse.objects.filter(user_id=user_id,course_id=course_id).select_related()
+    obj.delete()
+
+def get_user_registeredCourses_object(user_id):
+    registered_courses=user_registeredCourse.objects.filter(user_id=user_id).select_related().all()
+    if(registered_courses):
+        
+        return [i.course_id for i in registered_courses]
+        
+    else:
+        return []
+
+def get_user_registeredCourse_Object(user_id,course_id):
+    object=user_registeredCourse.objects.filter(user_id=user_id,course_id=course_id).select_related()
+    if(object):
+        # return object.course_id
+        return object[0].course_id
+    else:
+        return None
+
+    
+def get_course_prerequsiteCourse_ids(course_id):
+    object=course_prerequsiteCourse.objects.filter(course_id=course_id).select_related()
+    if(object):
+        return [i.prerequisite_course_id for i in object]
+    else:
+        return []
+
+    
+def get_user_completedCourse_ids_asdict(user_id):
+    object=user_completedCourse.objects.filter(user_id=user_id).select_related()
+    if(object):
+        return {i.course_id:1 for i in object}
+    else:
+        return {}
+
+# def get_user_registeredCourse_Objects(user_id):
+#     return user_registeredCourse.objects.filter(user_id=user_id).select_related().all()
+
 
 
 '''
@@ -77,11 +120,10 @@ def user_registered_courses(user_id):
 def get_registered_course_ids(user_id):
     
     try:
-        registered_courses=[]
-        registered_courses=user_registered_courses(user_id)
-        registered_courses_objects=get_course_objects(registered_courses)
+        reg_course_objs=get_user_registeredCourses_object(user_id)
+
         registered_course_ids=''
-        for i in registered_courses_objects:
+        for i in reg_course_objs:
             registered_course_ids+=' '+str(i.course_id)
 
         return registered_course_ids
@@ -163,71 +205,56 @@ def take_course(course_id,user_id):
     
 
     can_take_course=1
-
-    if(user_obj.registered_courses):
-        already_registered_courses=list(user_obj.registered_courses.split(','))
-        if(course_id in already_registered_courses):
-            return {'message':'Already registered for this course'}
-        user_registered_courses_objects=[]
-        for i in already_registered_courses:
-            user_registered_courses_objects.append(get_course_object(i))
-
-        clash,clash_courses=day_and_timing_clash(user_registered_courses_objects,course_obj)
-        if(clash):
-            msg='Failed! There is a timing clash with these courses -'
-            for i in clash_courses:
-                msg+=' '+i.name+' ,'
-            msg=msg[:-1]
-            return {'message':msg}
-    else:
-        pass
-
-    if(not course_obj.prerequisites):
-        can_take_course=1
     
-    else:
-        
-        prerequisites=list(course_obj.prerequisites.split(','))
-        if(not user_obj.courses_taken):
-            can_take_course=0
-            prerequisites_not_taken_ids=prerequisites
-            
-        else:
-            prev_courses=list(user_obj.courses_taken.split(','))
+    if(get_user_registeredCourse_Object(user_id,course_id)):
+        return {'message':'Already registered for this course'}
 
-            prev_courses_dict={}
-            for i in prev_courses:
-                prev_courses_dict[i]=1
+    user_registered_course_objects= get_user_registeredCourses_object(user_id)
 
-            can_take_course=1
-            prerequisites_not_taken_ids=[]
-            for i in prerequisites:
-                if(i not in prev_courses_dict):
-                    can_take_course=0
-                    prerequisites_not_taken_ids.append(i)
-
-    if(not can_take_course):
-        prerequisites_not_taken_objects=get_course_objects(prerequisites_not_taken_ids)
-        msg='Failed! You dont have these prerequisites -'
-        for i in prerequisites_not_taken_objects:
+    clash,clash_courses=day_and_timing_clash(user_registered_course_objects,course_obj)
+    if(clash):
+        msg='Failed! There is a timing clash with these courses -'
+        for i in clash_courses:
             msg+=' '+i.name+' ,'
         msg=msg[:-1]
-        
         return {'message':msg}
 
-            
+
+    # check for prerequisites
+    prerequisites_ids=get_course_prerequsiteCourse_ids(course_id)
+    if(not prerequisites_ids):
+        can_take_course=1
 
     else:
-        
-        reduce_available_seats(course_obj)
-        if(user_obj.registered_courses):
-            user_obj.registered_courses+=','+course_id
-            
-        else:
-            user_obj.registered_courses=course_id
-        user_obj.save()
+        prerequisites_not_taken_ids=[]
+        user_courses_taken_ids_dict=get_user_completedCourse_ids_asdict(user_id)
+        for i in prerequisites_ids:
+            if(i not in user_courses_taken_ids_dict):
+                can_take_course=0
+                prerequisites_not_taken_ids.append(i)
+    
 
-        return {'message':'Successfully registered for course'}
+
+    if(not can_take_course):
+        if(prerequisites_not_taken_ids==['']):
+            pass
+        else:
+            prerequisites_not_taken_objects=get_course_objects(prerequisites_not_taken_ids)
+            msg='Failed! You dont have these prerequisites -'
+            for i in prerequisites_not_taken_objects:
+                msg+=' '+i.name+' ,'
+            msg=msg[:-1]
+            
+            return {'message':msg}
+
+    
+    # if(can_take_course):
+    reduce_available_seats(course_obj)
+    new_entry=user_registeredCourse(user_id=user_obj,course_id=course_obj)
+    new_entry.save()
+    return {'message':'Successfully registered for course'}
+
+    
  
 
 '''
@@ -237,25 +264,19 @@ def take_course(course_id,user_id):
 '''
 
 def untake_course(course_id,user_id):
-    user_obj = get_user_object(user_id)
-    course_obj=get_course_object(course_id)
     
-    if(user_obj.registered_courses):
-        already_registered_courses=list(user_obj.registered_courses.split(','))
-        if(course_id in already_registered_courses):
-            already_registered_courses.remove(course_id)
-            user_obj.registered_courses=''
-            if(already_registered_courses):
-                user_obj.registered_courses=already_registered_courses[0]
-                for i in already_registered_courses[1:]:
-                    user_obj.registered_courses+=','+i
+    course_obj = get_course_object(course_id)
 
-            user_obj.save()
-            increase_available_seats(course_obj)
-            return {'message':'Successfully un-registered for this course'}
-    
-    return {'message':'Course Not registered '}
+    if(get_user_registeredCourse_Object(user_id,course_id)):
+        delete_registered_course(user_id,course_id)
+        
+        increase_available_seats(course_obj)
+        return {'message':'Successfully un-registered for this course'}
 
+    else:
+        return {'message':'Course Not registered '}
+
+        
 
 
     
@@ -323,22 +344,22 @@ def display_courses(request):
     passing_obj={'courses' : all_courses}
     passing_obj['number_of_courses']=len(all_courses)
     
-    try:
-        user_id=request.user.username
-        registered_courses=[]
-        registered_courses=user_registered_courses(user_id)
+    # try:
+    user_id=request.user.username
+    
+    registered_courses_objects=get_user_registeredCourses_object(user_id)
 
-        registered_courses_objects=get_course_objects(registered_courses)
+    
 
-        registered_course_ids=''
-        for i in registered_courses_objects:
-            registered_course_ids+=' '+str(i.course_id)
-        passing_obj['registered_course']=registered_course_ids
+    registered_course_ids=''
+    for i in registered_courses_objects:
+        registered_course_ids+=' '+str(i.course_id)
 
-        user_obj=get_user_object(user_id)
-        passing_obj['user_name']=user_obj.name
-    except:
-        pass
+    passing_obj['registered_course']=registered_course_ids
+
+    user_obj=get_user_object(user_id)
+    passing_obj['user_name']=user_obj.name
+   
 
     return render(request,'courses.html',passing_obj)
 
@@ -387,18 +408,29 @@ def search(request):
 def add_courses(request):
     if(request.user.username=='admin'):
         if(request.method == 'POST'):
-            name=request.POST.get('name')
-            course_id=request.POST.get('course_id')
-            prof_name=request.POST.get('prof_name')
-            prof_id=request.POST.get('prof_id')
-            seats_available=request.POST.get('seats_available')
-            description=request.POST.get('description')
-            prerequisites=request.POST.get('prerequisites')
-            days=request.POST.get('days')
-            start_time=request.POST.get('start_time')
-            end_time=request.POST.get('end_time')
-            reg = available_course(days=days,name=name, course_id=course_id, prof_name=prof_name,prof_id=prof_id,seats_available=seats_available,description=description,prerequisites=prerequisites,start_time=start_time,end_time=end_time)
-            reg.save()
+            try:
+                name=request.POST.get('name')
+                course_id=request.POST.get('course_id')
+                prof_name=request.POST.get('prof_name')
+                prof_id=request.POST.get('prof_id')
+                seats_available=request.POST.get('seats_available')
+                description=request.POST.get('description')
+                prerequisites=request.POST.get('prerequisites')
+
+
+                days=request.POST.get('days')
+                start_time=request.POST.get('start_time')
+                end_time=request.POST.get('end_time')
+                reg_available_course = available_course(days=days,name=name, course_id=course_id, prof_name=prof_name,prof_id=prof_id,seats_available=seats_available,description=description,start_time=start_time,end_time=end_time)
+            
+                reg_available_course.save()
+                prerequisites="".join(prerequisites.split())
+                prerequisites=prerequisites.split(',')
+                for i in prerequisites:
+                    reg_course_prerequsiteCourse = course_prerequsiteCourse(course_id=reg_available_course,prerequisite_course_id=i)
+                    reg_course_prerequsiteCourse.save()
+            except Exception:
+                render(request,'add_courses.html',{"message":"there were null entries please retry"})
 
 
         return render(request,'add_courses.html')
@@ -413,10 +445,10 @@ def add_courses(request):
     Function to unregister the required course from all users
     Only admin can access
 '''
-def remove_course_from_all_users(course_id):
-    users=myuser.objects.all()
-    for i in users:
-        untake_course(course_id,i.user_id)
+# def remove_course_from_all_users(course_id):
+#     users=myuser.objects.all()
+#     for i in users:
+#         untake_course(course_id,i.user_id)
     
 '''
     Controller function to delete a course
@@ -431,7 +463,7 @@ def delete_course(request):
             except:
                 return redirect('/home')
 
-            remove_course_from_all_users(course_id)
+            # remove_course_from_all_users(course_id)
             
             course_obj.delete()
         return render(request,'delete_course.html')
@@ -491,7 +523,7 @@ def update_course(request):
                 course_obj.end_time=end_time    
 
             course_obj.save()
-            remove_course_from_all_users(course_id)
+            # remove_course_from_all_users(course_id)
 
         return render(request,'update_course.html')
     else:

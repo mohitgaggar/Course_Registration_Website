@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-from home.models import myuser
+from home.models import myuser,user_registeredCourse,user_completedCourse
 from django.db.models import Q
 from pick_courses.views import *
 from django.http import HttpResponseServerError, HttpResponseNotFound
@@ -26,8 +26,8 @@ def home(request):
     data={'user_name':name}
     try:
         user_id=request.user.username
-        course_ids=user_registered_courses(user_id)
-        registered_courses_objects=get_course_objects(course_ids)
+        registered_courses_objects=get_user_registeredCourses_object(user_id)
+        
         courses=[]
         
         data['number_registered_courses']=len(registered_courses_objects)
