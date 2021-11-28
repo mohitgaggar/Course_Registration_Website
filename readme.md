@@ -31,12 +31,12 @@
 
 - To Run locally
     - clone the repo 
-        - git clone https://github.com/mohitgaggar/Course_Registration_Website.git
+        - ` git clone https://github.com/mohitgaggar/Course_Registration_Website.git`
     - Install requirements 
-        - pip install -r requirements.txt
+        - `pip install -r requirements.txt`
         (adviced to use a virtual environment)
     - go into the cloned repo and run the command
-        - python3 manage.py runserver
+        - `python3 manage.py runserver`
     - go to http://127.0.0.1:8000/ to view the website
 
 
