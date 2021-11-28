@@ -29,6 +29,9 @@
 - Link to website
     https://student-course-registration.herokuapp.com/
 
+- Link to video demo
+    https://youtu.be/gxY9mViJtGw
+
 - To Run locally
     - clone the repo 
         - ` git clone https://github.com/mohitgaggar/Course_Registration_Website.git`
