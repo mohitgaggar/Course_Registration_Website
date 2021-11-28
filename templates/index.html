@@ -340,7 +340,8 @@
 
             }
             var details_table = document.getElementById('detail-table-body')
-            details_table.innerHTML += `<tr><td >${i + 1}</td><td id="add-color${i + 1}"></td><td>${mydata[i]["course_id"]}</td><td>${mydata[i]["name"]}</td><td>${mydata[i]["prof_name"]}</td><td>${mydata[i]["start"]} - ${mydata[i]["end"]}</td></tr>`
+            // details_table.innerHTML += `<tr><td >${i + 1}</td><td id="add-color${i + 1}"></td><td>${mydata[i]["course_id"]}</td><td>${mydata[i]["name"]}</td><td>${mydata[i]["prof_name"]}</td><td>${mydata["start"]} - ${mydata[i]["end"]}</td></tr>`
+            details_table.innerHTML += `<tr><td >${i + 1}</td><td id="add-color${i + 1}"></td><td>${mydata[i]["course_id"]}</td><td>${mydata[i]["name"]}</td><td>${mydata[i]["prof_name"]}</td><td>${s_time[0]+':'+s_time[1]} - ${e_time[0]+':'+e_time[1]}</td></tr>`
             var id = `add-color${i + 1}`;
             var to_color = document.getElementById(id);
             to_color.style.backgroundColor = colors[ind];
