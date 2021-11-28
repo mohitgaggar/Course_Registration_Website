@@ -85,10 +85,10 @@
                     <td>Monday</td>
 
                     
-                    <td class="monday" id="8_00"></td>
-                    <td class="monday" id="8_30"></td>
-                    <td class="monday" id="9_00"></td>
-                    <td class="monday" id="9_30"></td>
+                    <td class="monday" id="08_00"></td>
+                    <td class="monday" id="08_30"></td>
+                    <td class="monday" id="09_00"></td>
+                    <td class="monday" id="09_30"></td>
                     <td class="monday" id="10_00"></td>
                     <td class="monday" id="10_30"></td>
                     <td class="monday" id="11_00"></td>
@@ -113,10 +113,10 @@
                     <td>Tuesday</td>
 
                    
-                    <td class="tuesday" id="8_00"></td>
-                    <td class="tuesday" id="8_30"></td>
-                    <td class="tuesday" id="9_00"></td>
-                    <td class="tuesday" id="9_30"></td>
+                    <td class="tuesday" id="08_00"></td>
+                    <td class="tuesday" id="08_30"></td>
+                    <td class="tuesday" id="09_00"></td>
+                    <td class="tuesday" id="09_30"></td>
                     <td class="tuesday" id="10_00"></td>
                     <td class="tuesday" id="10_30"></td>
                     <td class="tuesday" id="11_00"></td>
@@ -140,10 +140,10 @@
                     <td>Wednesday</td>
 
                    
-                    <td class="wednesday" id="8_00"></td>
-                    <td class="wednesday" id="8_30"></td>
-                    <td class="wednesday" id="9_00"></td>
-                    <td class="wednesday" id="9_30"></td>
+                    <td class="wednesday" id="08_00"></td>
+                    <td class="wednesday" id="08_30"></td>
+                    <td class="wednesday" id="09_00"></td>
+                    <td class="wednesday" id="09_30"></td>
                     <td class="wednesday" id="10_00"></td>
                     <td class="wednesday" id="10_30"></td>
                     <td class="wednesday" id="11_00"></td>
@@ -168,10 +168,10 @@
                     <td>Thursday</td>
 
                     
-                    <td class="thursday" id="8_00"></td>
-                    <td class="thursday" id="8_30"></td>
-                    <td class="thursday" id="9_00"></td>
-                    <td class="thursday" id="9_30"></td>
+                    <td class="thursday" id="08_00"></td>
+                    <td class="thursday" id="08_30"></td>
+                    <td class="thursday" id="09_00"></td>
+                    <td class="thursday" id="09_30"></td>
                     <td class="thursday" id="10_00"></td>
                     <td class="thursday" id="10_30"></td>
                     <td class="thursday" id="11_00"></td>
@@ -194,10 +194,10 @@
                 <tr>
                     <td>Friday</td>
 
-                    <td class="friday" id="8_00"></td>
-                    <td class="friday" id="8_30"></td>
-                    <td class="friday" id="9_00"></td>
-                    <td class="friday" id="9_30"></td>
+                    <td class="friday" id="08_00"></td>
+                    <td class="friday" id="08_30"></td>
+                    <td class="friday" id="09_00"></td>
+                    <td class="friday" id="09_30"></td>
                     <td class="friday" id="10_00"></td>
                     <td class="friday" id="10_30"></td>
                     <td class="friday" id="11_00"></td>
@@ -220,10 +220,10 @@
                 <tr>
                     <td>Saturday</td>
 
-                    <td class="saturday" id="8_00"></td>
-                    <td class="saturday" id="8_30"></td>
-                    <td class="saturday" id="9_00"></td>
-                    <td class="saturday" id="9_30"></td>
+                    <td class="saturday" id="08_00"></td>
+                    <td class="saturday" id="08_30"></td>
+                    <td class="saturday" id="09_00"></td>
+                    <td class="saturday" id="09_30"></td>
                     <td class="saturday" id="10_00"></td>
                     <td class="saturday" id="10_30"></td>
                     <td class="saturday" id="11_00"></td>
@@ -246,10 +246,10 @@
                     <td>Sunday</td>
 
                     
-                    <td class="sunday" id="8_00"></td>
-                    <td class="sunday" id="8_30"></td>
-                    <td class="sunday" id="9_00"></td>
-                    <td class="sunday" id="9_30"></td>
+                    <td class="sunday" id="08_00"></td>
+                    <td class="sunday" id="08_30"></td>
+                    <td class="sunday" id="09_00"></td>
+                    <td class="sunday" id="09_30"></td>
                     <td class="sunday" id="10_00"></td>
                     <td class="sunday" id="10_30"></td>
                     <td class="sunday" id="11_00"></td>
@@ -313,7 +313,7 @@
 
         var mydata = JSON.parse(document.getElementById('registered_course').textContent);
         
-        var colors = ['#FAEBD7', '#FFD700', '#00FFFF', '#7FFFD4', '#8A2BE2', '#A52A2A', 'yellow', 'green', 'blue', 'orange', 'purple', 'black', 'red']
+        var colors = ['#FAEBD7', '#FFD700', '#00FFFF', '#7FFFD4', '#8A2BE2', '#A52A2A', 'yellow','#DC143C' ,'green', 'blue', 'orange', 'purple', 'black', 'red','#2E8B57','#20B2AA','#6A5ACD']
 
         var ind = 0;
         for (var i = 0; i < mydata.length; i++) {
@@ -327,6 +327,7 @@
                     var e_time = obj['end'].split(':')
                     var e_time_ = e_time[0] + "_" + e_time[1]
                     var k = 0;
+                    console.log(s_time_,e_time_);
                     while (k < day_element.length) {
                         if (day_element[k].id >= s_time_ && day_element[k].id < e_time_) {
                             day_element[k].style.backgroundColor = colors[ind];

@@ -7,6 +7,11 @@ from pick_courses.views import *
 from django.http import HttpResponseServerError, HttpResponseNotFound
 
 
+
+'''
+    Database Function
+    Interacts with myuser table and returns user object (entire row) with the given user_id
+'''
 def get_user_object(user_id):
     return myuser.objects.get(Q(user_id=user_id))
 
@@ -38,10 +43,9 @@ def home(request):
                 courses.append({'name':i.name,'start':i.start_time,'end':i.end_time,'days':[days_of_week[j] for j in i.days.split(',')],'course_id':i.course_id,'prof_name':i.prof_name})
             else:
                 courses.append({'name':i.name,'start':i.start_time,'end':i.end_time,'days':None,'course_id':i.course_id,'prof_name':i.prof_name})
-
         data['registered_course']=courses
 
-    except:
+    except Exception as e:
         pass
 
     
@@ -85,7 +89,7 @@ def signup_user(request):
         # to check if user_id exists 
         try:
             get_user_object(user_id)
-            return render(request,'signup.html',{"message":"User Id already taken"})
+            return render(request,'signup.html',{"message":"User Id Already Taken"})
         except:
             pass
         
@@ -98,7 +102,7 @@ def signup_user(request):
 
             
         
-            return render(request,'signup.html',{"message":"Signed Up successfully! Please Login To continue","signedup":1})            
+            return render(request,'signup.html',{"message":"Signed Up Successfully! Please Login To continue","signedup":1})            
 
         
 
@@ -111,6 +115,10 @@ def signup_user(request):
 def signout_user(request):
     logout(request)
     return redirect('signin')
+
+'''
+    Custom Error handlers
+'''
 
 
 def handle_not_found404(request,exceptions=None):

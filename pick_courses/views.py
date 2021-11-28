@@ -49,32 +49,28 @@ def get_course_object(course_id):
 def get_all_courses():
     return available_course.objects.all()
 
+# def user_registered_courses(user_id):
 
+#     registered_courses=user_registeredCourse.objects.filter(user_id=user_id).select_related().all()
 
-
-"""
-    HELPER FUNCTIONS
-
-"""
-
-
+#     return [i.course_id for i in registered_courses]
 
 
 '''
-    Helper Function
-    returns all the courses the user has registered for currently
+    Function to query the user_registeredCourse table and delete the entry found
 '''
-def user_registered_courses(user_id):
-
-    registered_courses=user_registeredCourse.objects.filter(user_id=user_id).select_related().all()
-
-    
-    # user_obj=get_user_object(user_id)
-    return [i.course_id for i in registered_courses]
 
 def delete_registered_course(user_id,course_id):
     obj=user_registeredCourse.objects.filter(user_id=user_id,course_id=course_id).select_related()
     obj.delete()
+
+
+
+'''
+    Database Function
+    Queries the user_registeredCourse table and filters the records with the given user_id
+    Returns a list of Course objects which the user has registered for
+'''
 
 def get_user_registeredCourses_object(user_id):
     registered_courses=user_registeredCourse.objects.filter(user_id=user_id).select_related().all()
@@ -85,6 +81,12 @@ def get_user_registeredCourses_object(user_id):
     else:
         return []
 
+
+'''
+    Database Function
+    Queries the user_registeredCourse table with user_id and course_id
+    returns the course object if an entry is found
+'''
 def get_user_registeredCourse_Object(user_id,course_id):
     object=user_registeredCourse.objects.filter(user_id=user_id,course_id=course_id).select_related()
     if(object):
@@ -93,7 +95,11 @@ def get_user_registeredCourse_Object(user_id,course_id):
     else:
         return None
 
-    
+
+'''
+    Database Function to return all prerequisite required to take a given course
+
+'''    
 def get_course_prerequsiteCourse_ids(course_id):
     object=course_prerequsiteCourse.objects.filter(course_id=course_id).select_related()
     if(object):
@@ -101,7 +107,11 @@ def get_course_prerequsiteCourse_ids(course_id):
     else:
         return []
 
-    
+
+
+'''
+    Database Function to return all the courses the user has completed
+'''
 def get_user_completedCourse_ids_asdict(user_id):
     object=user_completedCourse.objects.filter(user_id=user_id).select_related()
     if(object):
@@ -109,8 +119,12 @@ def get_user_completedCourse_ids_asdict(user_id):
     else:
         return {}
 
-# def get_user_registeredCourse_Objects(user_id):
-#     return user_registeredCourse.objects.filter(user_id=user_id).select_related().all()
+
+
+"""
+    HELPER FUNCTIONS
+
+"""
 
 
 
@@ -248,7 +262,6 @@ def take_course(course_id,user_id):
             return {'message':msg}
 
     
-    # if(can_take_course):
     reduce_available_seats(course_obj)
     new_entry=user_registeredCourse(user_id=user_obj,course_id=course_obj)
     new_entry.save()
@@ -421,10 +434,12 @@ def add_courses(request):
                 days=request.POST.get('days')
                 start_time=request.POST.get('start_time')
                 end_time=request.POST.get('end_time')
+                prerequisites="".join(prerequisites.split())
+                days="".join(days.split())
                 reg_available_course = available_course(days=days,name=name, course_id=course_id, prof_name=prof_name,prof_id=prof_id,seats_available=seats_available,description=description,start_time=start_time,end_time=end_time)
             
                 reg_available_course.save()
-                prerequisites="".join(prerequisites.split())
+                
                 prerequisites=prerequisites.split(',')
                 for i in prerequisites:
                     reg_course_prerequsiteCourse = course_prerequsiteCourse(course_id=reg_available_course,prerequisite_course_id=i)
@@ -485,8 +500,13 @@ def update_course(request):
             prof_id=request.POST.get('prof_id')
             seats_available=request.POST.get('seats_available')
             description=request.POST.get('description')
+            
             prerequisites=request.POST.get('prerequisites')
+            
+
             days=request.POST.get('days')
+            
+            
             start_time=request.POST.get('start_time')
             end_time=request.POST.get('end_time')
 
@@ -511,9 +531,11 @@ def update_course(request):
                 course_obj.seats_available=seats_available
             
             if(prerequisites):
+                prerequisites="".join(prerequisites.split())
                 course_obj.prerequisites=prerequisites
             
             if(days):
+                days="".join(days.split())
                 course_obj.days=days
             
             if(start_time):
