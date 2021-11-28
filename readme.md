@@ -32,6 +32,9 @@
 - Link to video demo
     https://youtu.be/gxY9mViJtGw
 
+- Admin( django and website ) credentials will be shared separately as a file for safety reasons
+
+
 - To Run locally
     - clone the repo 
         - ` git clone https://github.com/mohitgaggar/Course_Registration_Website.git`
@@ -41,6 +44,9 @@
     - go into the cloned repo and run the command
         - `python3 manage.py runserver`
     - go to http://127.0.0.1:8000/ to view the website
+
+
+        
 
 
 ## Directory Structure
