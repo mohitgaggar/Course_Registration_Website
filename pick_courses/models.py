@@ -16,7 +16,6 @@ class available_course(course):
     prof_name=models.CharField(max_length=100)
     prof_id=models.CharField(max_length=100)
     seats_available=models.IntegerField(default=0)
-    prerequisites=models.TextField(null=True)
     
 
 

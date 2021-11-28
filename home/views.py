@@ -63,10 +63,17 @@ def signin_user(request):
     if(request.method=="POST"):
         user_id=request.POST.get('user_id')
         password=request.POST.get('password')
+        print(user_id,password)
+        
         user_exists = authenticate(username=user_id, password=password)
+        
+        
         if(user_exists is not None):
             login(request,user_exists)
             return redirect('home')
+            
+            
+
         else:
             return render(request,'signin.html',{"message":"Login Failed, Please Retry"})
     
