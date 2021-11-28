@@ -44,17 +44,17 @@
 
 
 - Basic Tree structure (level 1 expansion)
-.
-├── Procfile 
-├── course_registration_project     (Django Project name)
-├── db.sqlite3      (Database)
-├── home        ( Django app , handles authentication and the homepage)
-├── manage.py
-├── pick_courses        ( Django app to handle course selection and other course related features)
-├── readme.md
-├── requirements.txt
-├── static
-└── templates   (All html files)
+
+    - ├── Procfile 
+    - ├── course_registration_project     (Django Project name)
+    - ├── db.sqlite3      (Database)
+    - ├── home        ( Django app , handles authentication and the homepage)
+    - ├── manage.py
+    - ├── pick_courses        ( Django app to handle course selection and other course related features)
+    - ├── readme.md
+    - ├── requirements.txt
+    - ├── static
+    - └── templates   (All html files)
 
 
 - Structure With links
@@ -109,21 +109,3 @@
 
 
 
-
-
-
-.
-├── Procfile
-├── course_registration_project
-├── db.sqlite3
-├── file
-├── home
-├── manage.py
-├── pick_courses
-├── readme.md
-├── requirements.txt
-├── static
-├── templates
-└── venv1
-
-6 directories, 6 files
