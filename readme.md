@@ -112,3 +112,18 @@
 
 
 
+.
+├── Procfile
+├── course_registration_project
+├── db.sqlite3
+├── file
+├── home
+├── manage.py
+├── pick_courses
+├── readme.md
+├── requirements.txt
+├── static
+├── templates
+└── venv1
+
+6 directories, 6 files
