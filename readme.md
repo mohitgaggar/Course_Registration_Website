@@ -42,6 +42,22 @@
 
 ## Directory Structure
 
+
+- Basic Tree structure (level 1 expansion)
+.
+├── Procfile 
+├── course_registration_project     (Django Project name)
+├── db.sqlite3      (Database)
+├── home        ( Django app , handles authentication and the homepage)
+├── manage.py
+├── pick_courses        ( Django app to handle course selection and other course related features)
+├── readme.md
+├── requirements.txt
+├── static
+└── templates   (All html files)
+
+
+- Structure With links
 .
  * [course_registration_project](./course_registration_project)
    * [__init__.py](./course_registration_project/__init__.py)
