@@ -25,10 +25,6 @@
         - Deployed as an Application on heroku PAAS
 
 ## Usage
-
-- Link to website
-    https://student-course-registration.herokuapp.com/
-
 - Link to video demo
     https://youtu.be/gxY9mViJtGw
 
